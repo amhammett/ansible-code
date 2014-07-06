@@ -1,3 +1,12 @@
 ---
- - name: "foo"
-   local_action: debug msg="bar"
+ - name: "verify path"
+   stat: path="{{ consolidated_path }}"
+   register: verify_path
+
+ - name: "debug path"
+   debug: msg="{{ verify_path }}"
+   when: debug == 'true'
+
+ - name: "validate path"
+   debug: msg="{{ verify_path }}"
+   failed_when: verify_path.stat.exists == 'FALSE'

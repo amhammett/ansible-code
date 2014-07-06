@@ -1,6 +1,10 @@
 ---
 - hosts: all
 
+  vars:
+    - consolidated_path: "roles/consolidate-config-files/files"
+    - consolidated_to: "foobar.conf"
+
   gather_facts: no
   connection: local
 
