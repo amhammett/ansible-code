@@ -10,3 +10,27 @@
  - name: "validate path"
    debug: msg="{{ verify_path }}"
    failed_when: verify_path.stat.exists == 'FALSE'
+
+ - name: "register config files"
+   shell: "ls {{ consolidated_path }} | grep -v {{ consolidated_to }}"
+   register: config_files
+
+ - name: "debug files"
+   debug: msg="{{ config_files }}"
+   when: debug == 'true'
+
+ - name: "backup {{ consolidated_to }}" 
+   command: "mv {{ consolidated_path }}/{{ consolidated_to }} {{ consolidated_path }}/{{ consolidated_to }}.bk"
+   ignore_errors: yes
+
+ - name: "generate consolidated config"
+   shell: "echo '# imported from {{ item }}' >> {{ consolidated_path }}/{{ consolidated_to }}; cat {{ consolidated_path }}/{{ item }} >> {{ consolidated_path }}/{{ consolidated_to }}"
+   with_items: config_files.stdout_lines
+
+ - name: "verify {{ consolidated_to }} exists"
+   stat: path="{{ consolidated_path }}/{{ consolidated_to }}"
+   register: verify_to
+
+ - name: "validate {{ consolidated_to }}"
+   debug: msg="{{ consolidated_to }}"
+   failed_when: verify_to.stat.exists == 'FALSE'
