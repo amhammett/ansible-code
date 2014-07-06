@@ -5,7 +5,7 @@
 
  - name: "debug path"
    debug: msg="{{ verify_path }}"
-   when: debug == 'true'
+   when: debug|default(false) == 'true'
 
  - name: "validate path"
    debug: msg="{{ verify_path }}"
@@ -14,10 +14,11 @@
  - name: "register config files"
    shell: "ls {{ consolidated_path }} | grep -v {{ consolidated_to }}"
    register: config_files
+   changed_when: false
 
  - name: "debug files"
    debug: msg="{{ config_files }}"
-   when: debug == 'true'
+   when: debug|default(false) == 'true'
 
  - name: "backup {{ consolidated_to }}" 
    command: "mv {{ consolidated_path }}/{{ consolidated_to }} {{ consolidated_path }}/{{ consolidated_to }}.bk"
@@ -30,6 +31,10 @@
  - name: "verify {{ consolidated_to }} exists"
    stat: path="{{ consolidated_path }}/{{ consolidated_to }}"
    register: verify_to
+
+ - name: "debug path"
+   debug: msg="{{ verify_to }}"
+   when: debug|default(false) == 'true'
 
  - name: "validate {{ consolidated_to }}"
    debug: msg="{{ consolidated_to }}"
