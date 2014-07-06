@@ -1,0 +1,8 @@
+---
+- hosts: all
+
+  gather_facts: no
+  connection: local
+
+  roles:
+    - consolidate-config-files

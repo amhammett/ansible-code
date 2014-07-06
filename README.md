@@ -10,11 +10,20 @@ suppose you have a config directory with foo.conf and bar.conf
   /foo.conf
   /bar.conf
 
+?? why keep the files with the playbook? move to git repo and checkout. keep to version 2
+
 each file represents configuration for separate applications. you keep the file separate to make it easier to manage the files but ultimately you want to read all configuration in a single file, foobar.conf.
 
 This allows you to parse a single config file.
 
-role: consolidate-config-files
+files
+readme.md
+go-example.sh
+example.yml
+role/
+  consolidate-config-files/
+    tasks/main.yml
+    vars/main.yml
 
 parameters:
   - path:/path/to/config
