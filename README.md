@@ -3,15 +3,11 @@ consolidate-config-files
 
 ansible role to merge configuration files into a single file.
 
-scenario:
+# scenario
+suppose you have a repo containing various config files; e.g.  foo.conf and bar.conf
+now suppose that you want to consolidate all these config files into a single config file that can then be pushed out for use
 
-suppose you have a config directory with foo.conf and bar.conf
-/path/to/config
-  /foo.conf
-  /bar.conf
-
-?? why keep the files with the playbook? move to git repo and checkout. keep to version 2
-
+# why separate config?
 each file represents configuration for separate applications. you keep the file separate to make it easier to manage the files but ultimately you want to read all configuration in a single file, foobar.conf.
 
 This allows you to parse a single config file.
@@ -25,12 +21,11 @@ role/
     tasks/main.yml
     vars/main.yml
 
-parameters:
+# parameters:
   - path:/path/to/config
-  - dest:/path/to/config - can be separate on the same
   - consolidated_to:foobar.conf 
 
-logic:
+# logic:
   - verify path/dest exist
   - verify path/dest are writable
   - verify conf files exist in path (& not foobar.conf)
