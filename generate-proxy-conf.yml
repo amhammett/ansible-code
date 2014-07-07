@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  vars:
+    - git_repo: ssh://git@github.com/amhammett/proxy-configuration.git
+    - consolidated_to: "proxy.conf"
+
+  gather_facts: no
+  connection: local
+
+  roles:
+    - generate-proxy-conf
