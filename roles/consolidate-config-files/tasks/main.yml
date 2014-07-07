@@ -1,6 +1,13 @@
 ---
+ - name: "clean workspace"
+   command: "rm -rf {{ workspace }}"
+
+ - name: "clone git repo"
+   git: repo="{{ git_repo }}"
+     dest="{{ workspace }}"
+
  - name: "verify path"
-   stat: path="{{ consolidated_path }}"
+   stat: path="{{ workspace }}"
    register: verify_path
 
  - name: "debug path"
@@ -12,7 +19,7 @@
    failed_when: verify_path.stat.exists == 'FALSE'
 
  - name: "register config files"
-   shell: "ls {{ consolidated_path }} | grep -v {{ consolidated_to }}"
+   shell: "ls {{ workspace }} | grep -v {{ consolidated_to }}"
    register: config_files
    changed_when: false
 
@@ -21,15 +28,15 @@
    when: debug|default(false) == 'true'
 
  - name: "backup {{ consolidated_to }}" 
-   command: "mv {{ consolidated_path }}/{{ consolidated_to }} {{ consolidated_path }}/{{ consolidated_to }}.bk"
+   command: "mv {{ workspace }}/{{ consolidated_to }} {{ workspace }}/{{ consolidated_to }}.bk"
    ignore_errors: yes
 
  - name: "generate consolidated config"
-   shell: "echo '# imported from {{ item }}' >> {{ consolidated_path }}/{{ consolidated_to }}; cat {{ consolidated_path }}/{{ item }} >> {{ consolidated_path }}/{{ consolidated_to }}"
+   shell: "echo '# imported from {{ item }}' >> {{ workspace }}/{{ consolidated_to }}; cat {{ workspace }}/{{ item }} >> {{ workspace }}/{{ consolidated_to }}"
    with_items: config_files.stdout_lines
 
  - name: "verify {{ consolidated_to }} exists"
-   stat: path="{{ consolidated_path }}/{{ consolidated_to }}"
+   stat: path="{{ workspace }}/{{ consolidated_to }}"
    register: verify_to
 
  - name: "debug path"
@@ -39,3 +46,7 @@
  - name: "validate {{ consolidated_to }}"
    debug: msg="{{ consolidated_to }}"
    failed_when: verify_to.stat.exists == 'FALSE'
+
+ - name: "clean workspace"
+   command: "rm -rf {{ workspace }}"
+   when: false

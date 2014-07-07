@@ -2,8 +2,8 @@
 - hosts: all
 
   vars:
-    - consolidated_path: "roles/consolidate-config-files/files"
-    - consolidated_to: "foobar.conf"
+    - git_repo: ssh://git@github.com/amhammett/proxy-configuration.git
+    - consolidated_to: "proxy.conf"
 
   gather_facts: no
   connection: local
