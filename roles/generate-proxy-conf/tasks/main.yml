@@ -1,3 +1,6 @@
 ---
  - name: "generate proxy conf"
    debug: msg="generate proxy conf"
+
+ - name: "debug vars"
+   debug: msg="{{ ServerName }} {{ ServerAlias }} {{ ProxyForward }}"
