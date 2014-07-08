@@ -1,0 +1,10 @@
+---
+- hosts: all
+
+  vars:
+    - isalive: /isalive.php
+    - health_check: "sites/default/files"
+
+  roles:
+    - monitor-site-health-isalive
+    - monitor-site-health-string-check
