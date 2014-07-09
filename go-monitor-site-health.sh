@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-limit=${1}
+limit="--limit=$1"
 
-ansible-playbook monitor-site-health.yml.yml "${limit}" \
+ansible-playbook monitor-site-health.yml "${limit}" \
   --extra-vars "$2" 
