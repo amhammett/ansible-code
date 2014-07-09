@@ -1,0 +1,25 @@
+---
+## these two checks are essentially the same. they should be one role
+
+# monitor-site-health-isalive
+ - name: check isalive
+   shell: "curl -s {{ inventory_hostname }}/isalive.php"
+   register: isalive_check
+ - name: validate isalive
+   debug: msg="checking isalive output for PASS"
+   failed_when: "'PASS' not in isalive_check.stdout"
+ - name: validate isalive
+   debug: msg="checking isalive output for PASS"
+   failed_when: "'FAIL' in isalive_check.stdout"
+ - name: validate isalive
+#   debug: msg="checking isalive output for PASS"
+   failed_when: "'Moved Permanently' in isalive_check.stdout"
+
+# monitor-site-health-string-check
+# todo: move sites/all to vars to make it easier to maintain
+ - name: check homepage
+   shell: "curl -s -L {{ inventory_hostname }} | grep 'sites/all\\|sites/default' | wc -l | sed 's/ //g'"
+   register: string_check
+ - name: validate
+   debug: msg="checking homepage for site strings"
+   failed_when: "'0' in string_check.stdout"
