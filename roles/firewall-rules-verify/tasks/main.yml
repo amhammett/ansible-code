@@ -1,0 +1,7 @@
+---
+ - name: verify firewall rules
+   shell: "nc -G 5 -w 5 -z  {{ inventory_hostname }} {{ port }}"
+   register: verify_firewall
+ - name: validate firewall rules
+   debug: msg="validating firewall rules"
+   failed_when: "'FAILED' in verify_firewall"
