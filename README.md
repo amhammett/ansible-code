@@ -1,6 +1,8 @@
 ansible-code
 ==============
 
+A groups of tasks and roles that can be reused for purpose or for example.
+
 
 # consolidate-config-files
 ansible role to merge configuration files into a single file.
@@ -41,3 +43,12 @@ role/
   - validate consolidated file
   - ??
   - success
+
+# firewall-rules
+a simple test to verify that expected ports are open
+
+# generate proxy-config
+generating proxy config based on a template
+
+# monitor site health
+a simple test to validate health checks of a site
