@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+
+  gather_facts: no
+  connection: local
+
+  tasks:
+    - name: "find to do notes in files"
+      shell: "grep -R 'todo' . | grep -v find-todo"
+      register: found_files
+    - name: "found notes"
+      command: "echo {{ item }}"
+      with_items: found_files.stdout_lines

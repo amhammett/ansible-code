@@ -44,6 +44,9 @@ role/
   - ??
   - success
 
+# find-todo
+a quick way to find anything that needs to be done (comments with todo)
+
 # firewall-rules
 a simple test to verify that expected ports are open
 
