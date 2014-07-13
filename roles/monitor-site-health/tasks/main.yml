@@ -1,9 +1,7 @@
 ---
-## these two checks are essentially the same. they should be one role
-
 # monitor-site-health-isalive
  - name: check isalive
-   shell: "curl -s {{ inventory_hostname }}/isalive.php"
+   shell: "curl -s {{ url }}{{ subsite }}/isalive.php"
    register: isalive_check
  - name: validate isalive
    debug: msg="checking isalive output for PASS"
@@ -18,7 +16,7 @@
 # monitor-site-health-string-check
 # todo: move sites/all to vars to make it easier to maintain
  - name: check homepage
-   shell: "curl -s -L {{ inventory_hostname }} | grep 'sites/all\\|sites/default' | wc -l | sed 's/ //g'"
+   shell: "curl -s -L {{ url }}{{ subsite }} | grep '{{ string_check|default(health_check) }}' | wc -l | sed 's/ //g'"
    register: string_check
  - name: validate
    debug: msg="checking homepage for site strings"
