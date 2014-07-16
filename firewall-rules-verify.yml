@@ -6,4 +6,4 @@
 
   roles:
     - { role: firewall-rules-verify, port: 22 }
-    - { role: firewall-rules-verify, port: 80 }
+#    - { role: firewall-rules-verify, port: 80 }
