@@ -1,0 +1,9 @@
+---
+ - name: "todo:"
+   debug: msg="clone repo"
+
+ - name: "todo: optional"
+   debug: msg="clone  empty repo. update required files"
+
+ - name: "todo: push files"
+   debug: msg="sync/push files to?"

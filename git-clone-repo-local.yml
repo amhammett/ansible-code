@@ -1,0 +1,11 @@
+---
+- hosts: all
+
+  vars:
+    - git_repo: ssh://git@github.com/amhammett/proxy-configuration.git
+
+  gather_facts: no
+  connection: local
+
+  roles:
+    - git-clone-repo-local
