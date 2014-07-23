@@ -1,6 +1,9 @@
 ansible-code
 ==============
 
+todo: update this readme with details of each playbook
+todo: add test cases for each playbook
+
 A groups of tasks and roles that can be reused for purpose or for example.
 
 
